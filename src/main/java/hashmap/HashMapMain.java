@@ -10,10 +10,7 @@ public class HashMapMain {
         CustomHashMap<String, String> customHashMap = new CustomHashMap<>();
         customHashMap.put("name", "youssef");
         customHashMap.put("age", "22");
-        customHashMap.put("age", "22");
-        customHashMap.put("age", "22");
-        customHashMap.put("age", "22");
         customHashMap.put("city", "temara");
-        customHashMap.displayMap();
+        System.out.println(customHashMap.get("age"));
     }
 }

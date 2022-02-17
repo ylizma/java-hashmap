@@ -21,12 +21,11 @@ public class CustomHashMap<K, V> {
         if(key == null)
             return;
         int keyHashCode = this.getHashCode(key);
-        int index = keyHashCode % BUCKET_CAPACITY;
         Entry<K, V> element = new Entry<>(key, value, null);
-        if(bucket[index] == null){
-            bucket[index] = element;
+        if(bucket[keyHashCode] == null){
+            bucket[keyHashCode] = element;
         } else{
-            Entry<K, V> previous = bucket[index];
+            Entry<K, V> previous = bucket[keyHashCode];
             while(previous.next != null){
                 previous = previous.next;
             }
@@ -34,12 +33,30 @@ public class CustomHashMap<K, V> {
         }
     }
 
+    public V get(K key){
+        if(key == null)
+            return null;
+        int keyHashCode = this.getHashCode(key);
+        Entry<K, V> tmp = this.bucket[keyHashCode];
+        while (tmp != null){
+            if(tmp.key == key){
+                return tmp.value;
+            }
+            tmp = tmp.next;
+        }
+        return null;
+    }
+
+    public void remove(K key){
+
+    }
+
     public void displayMap(){
         System.out.println(Arrays.toString(this.bucket));
     }
 
     private int getHashCode(K key) {
-        return 17 * 37 + Objects.hashCode(key);
+        return (17 * 37 + key.hashCode()) % BUCKET_CAPACITY;
     }
     class Entry<K, V>{
         protected K key;
